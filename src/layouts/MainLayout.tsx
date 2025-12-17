@@ -1,14 +1,10 @@
-import {type FC, type ReactNode} from 'react';
-import {LayoutBox} from "./styledComponents.ts";
+import { type FC, type ReactNode } from "react";
+import { LayoutBox } from "./styledComponents.ts";
 
 interface MainLayoutProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-    return (
-        <LayoutBox>
-            {children}
-        </LayoutBox>
-    );
+  return <LayoutBox>{children}</LayoutBox>;
 };

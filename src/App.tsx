@@ -1,12 +1,13 @@
-import {MainLayout} from "./layouts/MainLayout.tsx";
-import {MainPage} from "./pages/MainPage/MainPage.tsx";
+/// <reference types="vite-plugin-svgr/client" />
+import { MainLayout } from "./layouts/MainLayout.tsx";
+import { MainPage } from "./pages/MainPage/MainPage.tsx";
 
 function App() {
   return (
-        <MainLayout>
-            <MainPage/>
-        </MainLayout>
-  )
+    <MainLayout>
+      <MainPage />
+    </MainLayout>
+  );
 }
 
-export default App
+export default App;
