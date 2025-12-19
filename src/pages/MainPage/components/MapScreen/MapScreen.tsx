@@ -1,5 +1,5 @@
-import { MapScreenBox } from "./styledComponents.ts";
+import { MapScreenBox } from './styledComponents.ts';
 
 export const MapScreen = () => {
-  return <MapScreenBox>{"MAP"}</MapScreenBox>;
+  return <MapScreenBox>{'MAP'}</MapScreenBox>;
 };

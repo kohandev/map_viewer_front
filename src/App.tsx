@@ -1,6 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
-import { MainLayout } from "./layouts/MainLayout.tsx";
-import { MainPage } from "./pages/MainPage/MainPage.tsx";
+import { MainLayout } from './layouts/MainLayout.tsx';
+import { MainPage } from './pages/MainPage/MainPage.tsx';
 
 function App() {
   return (

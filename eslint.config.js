@@ -19,5 +19,14 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      indent: ['error', 2, {
+        SwitchCase: 1,
+        ignoredNodes: ['JSXElement']
+      }],
+      'function-paren-newline': ['error', 'multiline'],
+      'object-curly-newline': ['error', { multiline: true }],
+      'array-bracket-newline': ['error', 'consistent']
+    }
   },
 ])
