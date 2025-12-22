@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { GeoService } from '../api/services/geo/service.ts';
 import type { TMapPoint } from '../pages/MainPage/components/GeoMap/types.ts';
 import { updateGeoPointsMap } from './helpers/updateGeoPointsMap.ts';
+import type { TGetGeoResponse } from '../api/services/geo/types.ts';
 
 export class GeoStore {
   geoPointsMap = new Map<string, TMapPoint>();
@@ -23,13 +24,18 @@ export class GeoStore {
     return this.geoPoints.filter((point) => point.isLost).length;
   }
 
+  updateGeoPoints(incomingGeoData: TGetGeoResponse[], now: Date) {
+    updateGeoPointsMap(this.geoPointsMap, incomingGeoData, now);
+  }
+
   async startPolling() {
     this.geoPointsMap.clear();
     if (this.intervalId) return;
 
     this.intervalId = window.setInterval(async () => {
+      console.log('polling');
       const { data } = await GeoService.getGeoData();
-      updateGeoPointsMap(this.geoPointsMap, data, new Date());
+      this.updateGeoPoints(data, new Date());
     }, 1000);
   }
 

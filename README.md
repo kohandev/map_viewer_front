@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# map_viewer_mock_server
+### React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ОПИС
 
-Currently, two official plugins are available:
+Це фронт-енд застосунок для відображення на карті масиву гео-поінтів, які змінюють свою локацію та параметри.
+Для тестування застосунку треба використовувати mock-сервер, який генерує набір гео-поінтів:
+[https://github.com/kohandev/map_viewer_mock_server](https://github.com/kohandev/map_viewer_mock_server)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Застосунок отримує із сервера "токен" та одночасно запускає на сервері генерацію масиву гео-поінтів та іх зміну.
 
-## React Compiler
+Після з'єднання із сервером застосунок робить запит на оновлення даних кожну секунду.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Усі гео-поінти відображаються на карті з відображенням напрямку по кожному.
 
-## Expanding the ESLint configuration
+Також відображається загальна кількість і кількість "загублених" поінтів (таких, що не оновлювалися більше однієї хвилини).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Активні поінти мають сіро-блакитний колір, "загублені" — рожевий колір.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Після дісконнекту із сервером "токен" видаляється.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Інструкція по запуску
+
+### Попередні вимоги
+- Node.js (версія 16 та вище)
+- npm (зазвичай інсталюється разом з Node.js)
+- Git (для клонування репозиторію)
+- Текстовий редактор або IDE (рекомендується WebStorm або VS Code)
+
+
+### Кроки для запуску
+1. Клонуйте репозиторій:
+```bash
+git clone https://github.com/kohandev/map_viewer_front.git
+cd map_viewer_front
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Встановіть залежності:
+```bash
+npm install
 ```
+
+3. Після встановлення залежностей запустіть додаток
+```bash
+npm run dev
+```
+Проєкт буде доступний за адресою http://localhost:5173 (або подібною — перевірте виведення в терміналі).
+
+Або
+```bash
+npm run build
+npm run preview
+```
+
+### Налаштування
+
+Налаштування часу, через який поінт стає "загубленим" або видаляється, можливо у файлі [сonstants.ts](src/constants.ts)
+
+Налаштування сервера можна змінити у файлі config.ts [config.ts](./config.ts)
+
+### Додатково

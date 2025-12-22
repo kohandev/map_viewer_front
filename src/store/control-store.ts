@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { ControlService } from '../api/services/control/service.ts';
 
 export class ControlStore {
@@ -10,12 +10,18 @@ export class ControlStore {
   }
 
   getTokenAction = async () => {
-    this.isLoading = true;
+    runInAction(() => {
+      this.isLoading = true;
+    });
     try {
       const res = await ControlService.getToken();
-      this.accessToken = res.data.accessToken;
+      runInAction(() => {
+        this.accessToken = res.data.accessToken;
+      });
     } finally {
-      this.isLoading = false;
+      runInAction(() => {
+        this.isLoading = false;
+      });
     }
   };
 
@@ -23,7 +29,9 @@ export class ControlStore {
 
   stopEngine = async () => {
     await ControlService.stopEngine();
-    this.accessToken = null;
+    runInAction(() => {
+      this.accessToken = null;
+    });
   };
 }
 
