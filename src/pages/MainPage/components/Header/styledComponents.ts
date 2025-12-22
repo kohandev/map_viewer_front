@@ -64,11 +64,11 @@ export const StatusIndicator = styled(MapMarkerIcon, {shouldForwardProp: (prop) 
 export const HeaderButton = styled(Button)(({ theme }) => ({
   width: 200,
   height: 40,
-  backgroundColor: '#2e5865',
+  backgroundColor: '#40798a',
   color: '#baefeb',
   marginLeft: theme.spacing(3),
 
-  '&:hover': { backgroundColor: '#40798a' },
+  '&:hover': { backgroundColor: '#5c8b98' },
 }));
 
 export const MonitorBox = styled(Box)({

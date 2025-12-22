@@ -7,6 +7,7 @@ export const MapScreenBox = styled(Box)({
   flex: 1,
   padding: 4,
   height: '100%',
+  width: '100%',
   overflow: 'auto',
   backgroundColor: '#fbdcdc',
 });

@@ -22,22 +22,20 @@ export const Header = observer(() => {
   }, [isActiveStatus]);
 
   const { getTokenAction, accessToken, startEngine, stopEngine } = controlStore;
-  const { getGeoDataAction, geoData } = geoStore;
+  const { startPolling, stopPolling } = geoStore;
 
-  console.log('accessToken', accessToken);
   const handleButton = async () => {
     if (isActiveStatus) {
       await stopEngine();
+      stopPolling();
       setActiveStatus(false);
       return;
     }
     await getTokenAction();
     await startEngine();
-    getGeoDataAction();
+    await startPolling();
     setActiveStatus(true);
   };
-
-  console.log(geoData?.value);
 
   return (
     <HeadBox>
@@ -50,7 +48,6 @@ export const Header = observer(() => {
 
       <MonitorBox>256</MonitorBox>
       <MonitorBox>19</MonitorBox>
-      {/*{accessToken && <MonitorBox>{accessToken}</MonitorBox>}*/}
       <ActionBox>
         <StatusIndicator notActive={!accessToken} status={isActiveStatus} />
         <HeaderButton onClick={() => handleButton()}>{buttonText}</HeaderButton>
