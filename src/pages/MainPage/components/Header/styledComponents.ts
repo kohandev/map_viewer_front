@@ -76,7 +76,7 @@ export const MonitorBox = styled(Box)({
   alignItems: 'center',
   justifyContent: 'center',
   height: 44,
-  width: 86,
+  width: 152,
   borderRadius: 4,
-  backgroundColor: '#81a8a5',
+  backgroundColor: '#baefeb',
 });

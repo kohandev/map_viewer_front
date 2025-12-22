@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { GeoService } from '../api/services/geo/service.ts';
 import type { TMapPoint } from '../pages/MainPage/components/GeoMap/types.ts';
 import { updateGeoPointsMap } from './helpers/updateGeoPointsMap.ts';
@@ -15,19 +15,21 @@ export class GeoStore {
     return Array.from(this.geoPointsMap.values());
   }
 
+  get geoPointsCount(): number {
+    return this.geoPointsMap.size;
+  }
+
+  get lostGeoPointsCount(): number {
+    return this.geoPoints.filter((point) => point.isLost).length;
+  }
+
   async startPolling() {
+    this.geoPointsMap.clear();
     if (this.intervalId) return;
 
     this.intervalId = window.setInterval(async () => {
-      try {
-        const { data } = await GeoService.getGeoData();
-        console.log('data', data);
-        runInAction(() => {
-          updateGeoPointsMap(this.geoPointsMap, data, new Date());
-        });
-      } catch (error) {
-        console.error('Failed to fetch geo data:', error);
-      }
+      const { data } = await GeoService.getGeoData();
+      updateGeoPointsMap(this.geoPointsMap, data, new Date());
     }, 1000);
   }
 
@@ -36,7 +38,6 @@ export class GeoStore {
       clearInterval(this.intervalId);
       this.intervalId = undefined;
     }
-    this.geoPointsMap.clear();
   }
 }
 

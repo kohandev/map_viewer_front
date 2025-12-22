@@ -13,6 +13,7 @@ import { observer } from 'mobx-react-lite';
 import controlStore from '../../../../store/control-store.ts';
 import geoStore from '../../../../store/geo-store.ts';
 import { useMemo, useState } from 'react';
+import { Typography } from '@mui/material';
 
 export const Header = observer(() => {
   const [isActiveStatus, setActiveStatus] = useState<boolean>(false);
@@ -22,7 +23,7 @@ export const Header = observer(() => {
   }, [isActiveStatus]);
 
   const { getTokenAction, accessToken, startEngine, stopEngine } = controlStore;
-  const { startPolling, stopPolling } = geoStore;
+  const { startPolling, stopPolling, geoPointsCount, lostGeoPointsCount } = geoStore;
 
   const handleButton = async () => {
     if (isActiveStatus) {
@@ -46,8 +47,12 @@ export const Header = observer(() => {
         <HeaderTitle>Map Viewer</HeaderTitle>
       </HeaderTitleBox>
 
-      <MonitorBox>256</MonitorBox>
-      <MonitorBox>19</MonitorBox>
+      <MonitorBox>
+        <Typography fontWeight={600}>{`ЗАГАЛОМ: ${geoPointsCount}`}</Typography>
+      </MonitorBox>
+      <MonitorBox>
+        <Typography fontWeight={600}>{`ЗАГУБЛЕНО: ${lostGeoPointsCount}`}</Typography>
+      </MonitorBox>
       <ActionBox>
         <StatusIndicator notActive={!accessToken} status={isActiveStatus} />
         <HeaderButton onClick={() => handleButton()}>{buttonText}</HeaderButton>
